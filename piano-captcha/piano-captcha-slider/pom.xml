@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>piano-captcha</artifactId>
+        <groupId>com.starxmind</groupId>
+        <version>0.0.2</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>piano-captcha-slider</artifactId>
+    <description>滑块验证码</description>
+
+    <dependencies>
+        <!-- 图像处理滤镜 -->
+        <dependency>
+            <groupId>com.jhlabs</groupId>
+            <artifactId>filters</artifactId>
+            <version>2.0.235-1</version>
+        </dependency>
+        <!-- io utils -->
+        <dependency>
+            <groupId>com.starxmind</groupId>
+            <artifactId>bass-io-core</artifactId>
+        </dependency>
+        <!-- math -->
+        <dependency>
+            <groupId>com.starxmind</groupId>
+            <artifactId>bass-math</artifactId>
+        </dependency>
+    </dependencies>
+</project>

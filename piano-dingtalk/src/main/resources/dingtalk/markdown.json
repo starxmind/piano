@@ -1,0 +1,12 @@
+{
+  "msgtype": "markdown",
+  "markdown": {
+    "title":"${title}",
+    "text": "${text}"
+  },
+  "at": {
+    "atMobiles": [ ${atMobiles} ],
+    "atUserIds": [ ${atUserIds} ],
+    "isAtAll": ${isAtAll}
+  }
+}
