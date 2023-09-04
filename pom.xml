@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
-    <name>bass</name>
+    <name>piano</name>
     <description>Thirty-part integrations</description>
     <url>https://starxmind.com/</url>
     <licenses>
@@ -21,9 +21,9 @@
         </developer>
     </developers>
     <scm>
-        <url>https://github.com/starxmind/bass.git</url>
-        <connection>scm:git:https://github.com/starxmind/bass.git</connection>
-        <developerConnection>scm:git:https://github.com/starxmind/bass.git</developerConnection>
+        <url>https://github.com/starxmind/piano.git</url>
+        <connection>scm:git:https://github.com/starxmind/piano.git</connection>
+        <developerConnection>scm:git:https://github.com/starxmind/piano.git</developerConnection>
     </scm>
 
     <modules>
@@ -47,10 +47,10 @@
 
     <groupId>com.starxmind</groupId>
     <artifactId>piano</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 
     <properties>
-        <piano.version>0.0.2</piano.version>
+        <piano.version>0.0.3</piano.version>
     </properties>
 
     <dependencies>
