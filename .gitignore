@@ -45,3 +45,9 @@ buildNumber.properties
 **/.project
 
 **/.conf/**
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
