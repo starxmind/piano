@@ -1,7 +1,6 @@
 package com.starxmind.piano.dingtalk;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import com.starxmind.bass.http.StarxHttp;
 import com.starxmind.bass.json.StarxJson;
 import com.starxmind.bass.security.Base64Utils;
@@ -32,8 +31,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Data
 public class DingTalkRobot {
-    private static final Map<String, String> MESSAGE_TEMPLATE_MAP = Maps.newHashMap();
-
     private StarxHttp StarxHttp;
     private String accessToken;
     private String secret;
