@@ -1,7 +1,7 @@
 package com.starxmind.piano.wechat.token.redis;
 
 import com.starxmind.bass.http.StarxHttp;
-import com.starxmind.piano.wechat.token.core.AbstractAccessTokenManager;
+import com.starxmind.piano.wechat.token.core.AccessTokenManager;
 import com.starxmind.piano.wechat.token.core.WeChatInfo;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
@@ -12,7 +12,7 @@ import org.redisson.api.RedissonClient;
  * @author pizzalord
  * @since 1.0
  */
-public class RedisAccessTokenManager extends AbstractAccessTokenManager {
+public class RedisAccessTokenManager extends AccessTokenManager {
     private static final String REDIS_KEY_ACCESS_TOKEN = "piano:wechat:access_token";
     private RedissonClient redissonClient;
 

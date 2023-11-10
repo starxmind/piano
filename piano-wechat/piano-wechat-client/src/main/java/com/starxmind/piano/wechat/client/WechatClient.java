@@ -3,7 +3,7 @@ package com.starxmind.piano.wechat.client;
 import com.starxmind.bass.http.StarxHttp;
 import com.starxmind.piano.wechat.client.response.WechatCellphoneResponse;
 import com.starxmind.piano.wechat.client.response.WechatSessionResponse;
-import com.starxmind.piano.wechat.token.core.AbstractAccessTokenManager;
+import com.starxmind.piano.wechat.token.core.AccessTokenManager;
 import com.starxmind.piano.wechat.token.core.WeChatInfo;
 
 /**
@@ -15,9 +15,9 @@ import com.starxmind.piano.wechat.token.core.WeChatInfo;
 public class WechatClient {
     private WeChatInfo weChatInfo;
     private StarxHttp StarxHttp;
-    private AbstractAccessTokenManager accessTokenManager;
+    private AccessTokenManager accessTokenManager;
 
-    public WechatClient(WeChatInfo weChatInfo, StarxHttp StarxHttp, AbstractAccessTokenManager accessTokenManager) {
+    public WechatClient(WeChatInfo weChatInfo, StarxHttp StarxHttp, AccessTokenManager accessTokenManager) {
         this.weChatInfo = weChatInfo;
         this.StarxHttp = StarxHttp;
         this.accessTokenManager = accessTokenManager;

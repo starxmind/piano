@@ -10,7 +10,7 @@ import com.starxmind.bass.sugar.Asserts;
  * @author pizzalord
  * @since 1.0
  */
-public abstract class AbstractAccessTokenManager {
+public abstract class AccessTokenManager {
     protected static final long ACCESS_TOKEN_EXPIRATION_TIME = 2 * DateUtils.ONE_HOUR;
     protected static final long ACCESS_TOKEN_REQUEST_TIME = 5 * DateUtils.ONE_MINUTE;
     // 有效时间: 微信是2个小时, 这里定义115分钟, 5分钟的时间用来屏蔽取Token的时间
@@ -18,7 +18,7 @@ public abstract class AbstractAccessTokenManager {
     private StarxHttp StarxHttp;
     private WeChatInfo weChatInfo;
 
-    public AbstractAccessTokenManager(StarxHttp StarxHttp, WeChatInfo weChatInfo) {
+    public AccessTokenManager(StarxHttp StarxHttp, WeChatInfo weChatInfo) {
         this.StarxHttp = StarxHttp;
         this.weChatInfo = weChatInfo;
     }
