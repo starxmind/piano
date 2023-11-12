@@ -14,7 +14,7 @@ import org.redisson.api.RedissonClient;
  */
 public class RedisAccessTokenManager extends AccessTokenManager {
     private static final String REDIS_KEY_ACCESS_TOKEN = "piano:wechat:access_token";
-    private RedissonClient redissonClient;
+    private final RedissonClient redissonClient;
 
     public RedisAccessTokenManager(StarxHttp StarxHttp, WeChatInfo weChatInfo, RedissonClient redissonClient) {
         super(StarxHttp, weChatInfo);
