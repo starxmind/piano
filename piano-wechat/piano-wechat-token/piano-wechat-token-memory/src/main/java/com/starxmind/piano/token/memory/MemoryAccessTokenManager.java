@@ -14,8 +14,8 @@ public class MemoryAccessTokenManager extends AccessTokenManager {
     private String accessToken;
     private Long tokenCreateTimestamp;
 
-    public MemoryAccessTokenManager(StarxHttp StarxHttp, WeChatInfo weChatInfo) {
-        super(StarxHttp, weChatInfo);
+    public MemoryAccessTokenManager(WeChatInfo weChatInfo, StarxHttp starxHttp) {
+        super(weChatInfo, starxHttp);
     }
 
     @Override

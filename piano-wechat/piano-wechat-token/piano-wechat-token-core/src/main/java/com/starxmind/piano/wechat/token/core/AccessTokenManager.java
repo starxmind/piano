@@ -3,6 +3,7 @@ package com.starxmind.piano.wechat.token.core;
 import com.starxmind.bass.date.DateUtils;
 import com.starxmind.bass.http.StarxHttp;
 import com.starxmind.bass.sugar.Asserts;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 微信 AccessToken 管理器
@@ -10,18 +11,15 @@ import com.starxmind.bass.sugar.Asserts;
  * @author pizzalord
  * @since 1.0
  */
+@RequiredArgsConstructor
 public abstract class AccessTokenManager {
     protected static final long ACCESS_TOKEN_EXPIRATION_TIME = 2 * DateUtils.ONE_HOUR;
     protected static final long ACCESS_TOKEN_REQUEST_TIME = 5 * DateUtils.ONE_MINUTE;
     // 有效时间: 微信是2个小时, 这里定义115分钟, 5分钟的时间用来屏蔽取Token的时间
     protected static final long ACCESS_TOKEN_STORAGE_TIME = ACCESS_TOKEN_EXPIRATION_TIME - ACCESS_TOKEN_REQUEST_TIME;
-    private StarxHttp StarxHttp;
-    private WeChatInfo weChatInfo;
 
-    public AccessTokenManager(StarxHttp StarxHttp, WeChatInfo weChatInfo) {
-        this.StarxHttp = StarxHttp;
-        this.weChatInfo = weChatInfo;
-    }
+    private final WeChatInfo weChatInfo;
+    private final StarxHttp starxHttp;
 
     /**
      * 获取AccessToken
@@ -46,7 +44,7 @@ public abstract class AccessTokenManager {
     private String fetchAccessToken() {
         String url = String.format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s",
                 weChatInfo.getAppId(), weChatInfo.getSecret());
-        AccessTokenResponse response = StarxHttp.getForObject(url, AccessTokenResponse.class);
+        AccessTokenResponse response = starxHttp.getForObject(url, AccessTokenResponse.class);
         Asserts.isTrue(response.getErrcode() == 0, response.getErrmsg());
         String accessToken = response.getAccess_token();
         return accessToken;
