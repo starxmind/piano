@@ -42,15 +42,15 @@
     <parent>
         <groupId>com.starxmind</groupId>
         <artifactId>bass</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.3</version>
     </parent>
 
     <groupId>com.starxmind</groupId>
     <artifactId>piano</artifactId>
-    <version>0.0.6</version>
+    <version>0.0.7</version>
 
     <properties>
-        <piano.version>0.0.6</piano.version>
+        <piano.version>0.0.7</piano.version>
     </properties>
 
     <dependencies>
