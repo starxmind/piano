@@ -47,10 +47,10 @@
 
     <groupId>com.starxmind</groupId>
     <artifactId>piano</artifactId>
-    <version>0.0.7</version>
+    <version>0.1.0</version>
 
     <properties>
-        <piano.version>0.0.7</piano.version>
+        <piano.version>0.1.0</piano.version>
     </properties>
 
     <dependencies>
