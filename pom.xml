@@ -37,6 +37,7 @@
         <module>piano-redis</module>
         <module>piano-captcha</module>
         <module>piano-sms</module>
+        <module>piano-jwt</module>
     </modules>
 
     <parent>
@@ -47,10 +48,10 @@
 
     <groupId>com.starxmind</groupId>
     <artifactId>piano</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
 
     <properties>
-        <piano.version>0.1.1</piano.version>
+        <piano.version>0.1.2</piano.version>
     </properties>
 
     <dependencies>
@@ -161,6 +162,11 @@
             <dependency>
                 <groupId>com.starxmind</groupId>
                 <artifactId>piano-sms-guoyangyun</artifactId>
+                <version>${piano.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.starxmind</groupId>
+                <artifactId>piano-jwt</artifactId>
                 <version>${piano.version}</version>
             </dependency>
             <dependency>
