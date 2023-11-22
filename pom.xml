@@ -38,20 +38,21 @@
         <module>piano-captcha</module>
         <module>piano-sms</module>
         <module>piano-jwt</module>
+        <module>piano-verifycode</module>
     </modules>
 
     <parent>
         <groupId>com.starxmind</groupId>
         <artifactId>bass</artifactId>
-        <version>0.0.4</version>
+        <version>0.0.6</version>
     </parent>
 
     <groupId>com.starxmind</groupId>
     <artifactId>piano</artifactId>
-    <version>0.1.2</version>
+    <version>0.1.3</version>
 
     <properties>
-        <piano.version>0.1.2</piano.version>
+        <piano.version>0.1.3</piano.version>
     </properties>
 
     <dependencies>
@@ -167,6 +168,11 @@
             <dependency>
                 <groupId>com.starxmind</groupId>
                 <artifactId>piano-jwt</artifactId>
+                <version>${piano.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.starxmind</groupId>
+                <artifactId>piano-verifycode</artifactId>
                 <version>${piano.version}</version>
             </dependency>
             <dependency>
