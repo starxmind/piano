@@ -1,8 +1,19 @@
 package com.starxmind.piano.verifycode;
 
+import lombok.Getter;
+
+@Getter
 public abstract class VerifyCodeCache {
-    long expirationMilliseconds() {
-        return 60_000;
+    private static final long DEFAULT_EXPIRATION_MILLISECONDS = 60_000;
+
+    private final long expirationMilliseconds;
+
+    public VerifyCodeCache() {
+        this.expirationMilliseconds = DEFAULT_EXPIRATION_MILLISECONDS;
+    }
+
+    public VerifyCodeCache(long expirationMilliseconds) {
+        this.expirationMilliseconds = expirationMilliseconds;
     }
 
     String cacheKey(String receiver, String scene) {
