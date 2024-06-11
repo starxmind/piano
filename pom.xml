@@ -44,7 +44,7 @@
     <parent>
         <groupId>com.starxmind</groupId>
         <artifactId>bass</artifactId>
-        <version>0.0.7</version>
+        <version>0.0.9</version>
     </parent>
 
     <groupId>com.starxmind</groupId>
