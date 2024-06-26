@@ -5,15 +5,16 @@
     <parent>
         <artifactId>piano</artifactId>
         <groupId>com.starxmind</groupId>
-        <version>0.1.5</version>
+        <version>0.1.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>piano-wechat</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>piano-wechat-client</module>
         <module>piano-wechat-token</module>
+        <module>piano-wechat-client</module>
+        <module>piano-wechat-pay</module>
     </modules>
 
     <dependencies>

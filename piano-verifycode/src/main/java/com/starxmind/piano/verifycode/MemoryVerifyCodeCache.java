@@ -1,6 +1,7 @@
 package com.starxmind.piano.verifycode;
 
-import com.starxmind.bass.datastructure.tree.ExpiringMap;
+
+import com.starxmind.bass.datastructure.map.ExpiringMap;
 
 public class MemoryVerifyCodeCache extends VerifyCodeCache {
     ExpiringMap<String, String> expiringMap = new ExpiringMap<>();

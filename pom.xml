@@ -44,15 +44,14 @@
     <parent>
         <groupId>com.starxmind</groupId>
         <artifactId>bass</artifactId>
-        <version>0.0.9</version>
+        <version>0.1.0</version>
     </parent>
 
-    <groupId>com.starxmind</groupId>
     <artifactId>piano</artifactId>
-    <version>0.1.5</version>
+    <version>0.1.6</version>
 
     <properties>
-        <piano.version>0.1.5</piano.version>
+        <piano.version>0.1.6</piano.version>
     </properties>
 
     <dependencies>
@@ -97,11 +96,6 @@
             </dependency>
             <dependency>
                 <groupId>com.starxmind</groupId>
-                <artifactId>piano-wechat-client</artifactId>
-                <version>${piano.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.starxmind</groupId>
                 <artifactId>piano-wechat-token</artifactId>
                 <version>${piano.version}</version>
             </dependency>
@@ -118,6 +112,16 @@
             <dependency>
                 <groupId>com.starxmind</groupId>
                 <artifactId>piano-wechat-token-redis</artifactId>
+                <version>${piano.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.starxmind</groupId>
+                <artifactId>piano-wechat-client</artifactId>
+                <version>${piano.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.starxmind</groupId>
+                <artifactId>piano-wechat-pay</artifactId>
                 <version>${piano.version}</version>
             </dependency>
             <dependency>
