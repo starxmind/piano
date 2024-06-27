@@ -1,4 +1,4 @@
-package com.starxmind.piano.wechat.pay;
+package com.starxmind.piano.wechat.pay.req;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 @Data
-public class PayReq {
+public class PrepayReq {
     @NotNull(message = "Total is required")
     @Min(value = 1, message = "Param 'total' must be greater than 0")
     private Double total;

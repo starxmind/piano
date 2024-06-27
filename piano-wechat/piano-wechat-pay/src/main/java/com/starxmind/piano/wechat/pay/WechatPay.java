@@ -1,5 +1,6 @@
 package com.starxmind.piano.wechat.pay;
 
+import com.starxmind.piano.wechat.pay.req.PrepayReq;
 import com.wechat.pay.java.core.Config;
 import com.wechat.pay.java.core.RSAAutoCertificateConfig;
 import lombok.Getter;
@@ -48,5 +49,5 @@ public abstract class WechatPay {
         return originMoney.multiply(new BigDecimal(100)).intValue();
     }
 
-    public abstract String prepay(@Valid PayReq payReq);
+    public abstract Object prepay(@Valid PrepayReq prepayReq);
 }

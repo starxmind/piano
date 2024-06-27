@@ -17,5 +17,13 @@
             <artifactId>wechatpay-java</artifactId>
             <version>0.2.12</version>
         </dependency>
+        <dependency>
+            <groupId>com.starxmind</groupId>
+            <artifactId>bass-random</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.starxmind</groupId>
+            <artifactId>bass-security</artifactId>
+        </dependency>
     </dependencies>
 </project>

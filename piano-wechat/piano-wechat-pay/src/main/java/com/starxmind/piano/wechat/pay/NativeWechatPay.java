@@ -1,5 +1,6 @@
 package com.starxmind.piano.wechat.pay;
 
+import com.starxmind.piano.wechat.pay.req.PrepayReq;
 import com.wechat.pay.java.service.payments.nativepay.NativePayService;
 import com.wechat.pay.java.service.payments.nativepay.model.Amount;
 import com.wechat.pay.java.service.payments.nativepay.model.PrepayRequest;
@@ -24,7 +25,7 @@ public class NativeWechatPay extends WechatPay {
     }
 
     @Override
-    public String prepay(@Valid PayReq payReq) {
+    public String prepay(@Valid PrepayReq prepayReq) {
         // 使用自动更新平台证书的RSA配置
         // 一个商户号只能初始化一个配置，否则会因为重复的下载任务报错
 
@@ -32,13 +33,13 @@ public class NativeWechatPay extends WechatPay {
         // request.setXxx(val)设置所需参数，具体参数可见Request定义
         PrepayRequest request = new PrepayRequest();
         Amount amount = new Amount();
-        amount.setTotal(convertMoney(BigDecimal.valueOf(payReq.getTotal())));
+        amount.setTotal(convertMoney(BigDecimal.valueOf(prepayReq.getTotal())));
         request.setAmount(amount);
         request.setAppid(getAppId());
         request.setMchid(getPayConfig().getMerchantId());
-        request.setDescription(payReq.getDescription());
-        request.setNotifyUrl(payReq.getNotifyUrl());
-        request.setOutTradeNo(payReq.getOrderNo());
+        request.setDescription(prepayReq.getDescription());
+        request.setNotifyUrl(prepayReq.getNotifyUrl());
+        request.setOutTradeNo(prepayReq.getOrderNo());
         // 调用下单方法，得到应答
         PrepayResponse response = payService.prepay(request);
         // 使用微信扫描 code_url 对应的二维码，即可体验Native支付
