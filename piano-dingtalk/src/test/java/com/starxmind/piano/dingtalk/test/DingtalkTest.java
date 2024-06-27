@@ -1,7 +1,7 @@
 package com.starxmind.piano.dingtalk.test;
 
 import com.google.common.collect.Lists;
-import com.starxmind.bass.http.StarxHttp;
+import com.starxmind.bass.http.XHttp;
 import com.starxmind.bass.io.core.IOUtils;
 import com.starxmind.bass.sugar.ClassLoaderUtils;
 import com.starxmind.bass.sugar.ExceptionUtils;
@@ -30,8 +30,8 @@ public class DingtalkTest {
 
     @Before
     public void setUp() {
-        StarxHttp StarxHttp = new StarxHttp();
-        dingTalkRobot = new DingTalkRobot(StarxHttp, accessToken, secret);
+        XHttp XHttp = new XHttp();
+        dingTalkRobot = new DingTalkRobot(XHttp, accessToken, secret);
     }
 
 //    @Test

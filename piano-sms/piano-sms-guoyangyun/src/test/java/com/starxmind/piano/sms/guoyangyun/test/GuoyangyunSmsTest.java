@@ -1,7 +1,7 @@
 package com.starxmind.piano.sms.guoyangyun.test;
 
 import com.google.common.collect.Maps;
-import com.starxmind.bass.http.StarxHttp;
+import com.starxmind.bass.http.XHttp;
 import com.starxmind.piano.sms.core.request.SmsRequest;
 import com.starxmind.piano.sms.guoyangyun.GuoyangyunSmsClient;
 
@@ -19,8 +19,8 @@ public class GuoyangyunSmsTest {
         Map<String, Object> params = Maps.newHashMap();
         params.put("code", "1234");
         params.put("minute", "10");
-        StarxHttp StarxHttp = new StarxHttp();
-        GuoyangyunSmsClient guoyangyunSmsClient = new GuoyangyunSmsClient("xxx", StarxHttp);
+        XHttp XHttp = new XHttp();
+        GuoyangyunSmsClient guoyangyunSmsClient = new GuoyangyunSmsClient("xxx", XHttp);
         guoyangyunSmsClient.send(
                 SmsRequest.builder()
                         .signName("xxx")

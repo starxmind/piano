@@ -1,7 +1,7 @@
 package com.starxmind.piano.wechat.pay;
 
 import com.google.common.collect.Maps;
-import com.starxmind.bass.random.UuidRandomUtils;
+import com.starxmind.bass.random.RandomUuidUtils;
 import com.starxmind.bass.security.Base64Utils;
 import com.starxmind.piano.wechat.pay.req.PrepayReq;
 import com.starxmind.piano.wechat.pay.resp.PayPackage;
@@ -61,12 +61,12 @@ public class JsapiWechatPay extends WechatPay {
 
     private PayPackage getPayPackage(String prepayId) {
         long timeStamp = Instant.now().getEpochSecond();
-        String nonceStr = UuidRandomUtils.gen32UpperCase();
+        String nonceStr = RandomUuidUtils.gen32UpperCase();
         String prepayPackage = "prepay_id=" + prepayId;
 
         Map<String, Object> retMap = Maps.newHashMap();
         retMap.put("appId", getAppId());
-        retMap.put("timeStamp", timeStamp);
+        retMap.put("timeStamp", String.valueOf(timeStamp));
         retMap.put("nonceStr", nonceStr);
         retMap.put("package", prepayPackage);
         retMap.put("signType", "RSA");

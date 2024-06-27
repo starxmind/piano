@@ -1,7 +1,7 @@
 package com.starxmind.piano.wechat.client;
 
-import com.starxmind.bass.http.StarxHttp;
-import com.starxmind.bass.json.StarxJson;
+import com.starxmind.bass.http.XHttp;
+import com.starxmind.bass.json.XJson;
 import com.starxmind.piano.wechat.client.request.UnlimitedQRCodeRequest;
 import com.starxmind.piano.wechat.client.response.WechatCellphoneResponse;
 import com.starxmind.piano.wechat.client.response.WechatSessionResponse;
@@ -16,12 +16,12 @@ import com.starxmind.piano.wechat.token.core.WeChatInfo;
  */
 public class WechatClient {
     private WeChatInfo weChatInfo;
-    private StarxHttp starxHttp;
+    private XHttp XHttp;
     private AccessTokenManager accessTokenManager;
 
-    public WechatClient(WeChatInfo weChatInfo, StarxHttp starxHttp, AccessTokenManager accessTokenManager) {
+    public WechatClient(WeChatInfo weChatInfo, XHttp XHttp, AccessTokenManager accessTokenManager) {
         this.weChatInfo = weChatInfo;
-        this.starxHttp = starxHttp;
+        this.XHttp = XHttp;
         this.accessTokenManager = accessTokenManager;
     }
 
@@ -29,7 +29,7 @@ public class WechatClient {
     public WechatSessionResponse fetchSession(String code) {
         String url = String.format("https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code",
                 weChatInfo.getAppId(), weChatInfo.getSecret(), code);
-        WechatSessionResponse resp = starxHttp.getForObject(url, WechatSessionResponse.class);
+        WechatSessionResponse resp = XHttp.getForObject(url, WechatSessionResponse.class);
         resp.ok();
         return resp;
     }
@@ -40,7 +40,7 @@ public class WechatClient {
                 "https://api.weixin.qq.com/wxa/business/getuserphonenumber?access_token=%s",
                 accessTokenManager.getAccessToken()
         );
-        WechatCellphoneResponse resp = starxHttp.postForObject(url, null, String.format("{\"code\":\"%s\"}", code), WechatCellphoneResponse.class);
+        WechatCellphoneResponse resp = XHttp.postForObject(url, null, String.format("{\"code\":\"%s\"}", code), WechatCellphoneResponse.class);
         resp.ok();
         return resp;
     }
@@ -51,6 +51,6 @@ public class WechatClient {
                 "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=%s",
                 accessTokenManager.getAccessToken()
         );
-        return starxHttp.postForBytes(url, null, StarxJson.serializeAsString(request));
+        return XHttp.postForBytes(url, null, XJson.serializeAsString(request));
     }
 }

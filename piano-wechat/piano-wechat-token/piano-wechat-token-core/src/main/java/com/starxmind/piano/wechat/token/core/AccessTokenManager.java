@@ -1,7 +1,7 @@
 package com.starxmind.piano.wechat.token.core;
 
 import com.starxmind.bass.date.DateUtils;
-import com.starxmind.bass.http.StarxHttp;
+import com.starxmind.bass.http.XHttp;
 import com.starxmind.bass.sugar.Asserts;
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +19,7 @@ public abstract class AccessTokenManager {
     protected static final long ACCESS_TOKEN_STORAGE_TIME = ACCESS_TOKEN_EXPIRATION_TIME - ACCESS_TOKEN_REQUEST_TIME;
 
     private final WeChatInfo weChatInfo;
-    private final StarxHttp starxHttp;
+    private final XHttp XHttp;
 
     /**
      * 获取AccessToken
@@ -44,7 +44,7 @@ public abstract class AccessTokenManager {
     private String fetchAccessToken() {
         String url = String.format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s",
                 weChatInfo.getAppId(), weChatInfo.getSecret());
-        AccessTokenResponse response = starxHttp.getForObject(url, AccessTokenResponse.class);
+        AccessTokenResponse response = XHttp.getForObject(url, AccessTokenResponse.class);
         Asserts.isTrue(response.getErrcode() == 0, response.getErrmsg());
         String accessToken = response.getAccess_token();
         return accessToken;

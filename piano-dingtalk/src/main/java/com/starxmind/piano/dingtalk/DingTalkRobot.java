@@ -1,8 +1,8 @@
 package com.starxmind.piano.dingtalk;
 
 import com.google.common.collect.ImmutableMap;
-import com.starxmind.bass.http.StarxHttp;
-import com.starxmind.bass.json.StarxJson;
+import com.starxmind.bass.http.XHttp;
+import com.starxmind.bass.json.XJson;
 import com.starxmind.bass.security.Base64Utils;
 import com.starxmind.bass.security.HmacUtils;
 import com.starxmind.bass.sugar.Asserts;
@@ -31,17 +31,17 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Data
 public class DingTalkRobot {
-    private StarxHttp StarxHttp;
+    private XHttp XHttp;
     private String accessToken;
     private String secret;
 
-    public DingTalkRobot(StarxHttp StarxHttp, String accessToken) {
-        this.StarxHttp = StarxHttp;
+    public DingTalkRobot(XHttp XHttp, String accessToken) {
+        this.XHttp = XHttp;
         this.accessToken = accessToken;
     }
 
-    public DingTalkRobot(StarxHttp StarxHttp, String accessToken, String secret) {
-        this.StarxHttp = StarxHttp;
+    public DingTalkRobot(XHttp XHttp, String accessToken, String secret) {
+        this.XHttp = XHttp;
         this.accessToken = accessToken;
         this.secret = secret;
     }
@@ -80,7 +80,7 @@ public class DingTalkRobot {
     private void sendMessage(String json) {
         // Call the dingtalk api
         String webhookUrl = generateWebhookUrl();
-        Response response = StarxHttp.postForObject(webhookUrl, null, json, Response.class);
+        Response response = XHttp.postForObject(webhookUrl, null, json, Response.class);
         Asserts.equals(response.getErrcode(), 0, new DingTalkResponse(response.getErrmsg()));
     }
 
@@ -89,7 +89,7 @@ public class DingTalkRobot {
         TextReq textReq = TextReq.builder()
                 .text(new Text(content))
                 .build();
-        String json = StarxJson.serializeAsString(textReq);
+        String json = XJson.serializeAsString(textReq);
         sendMessage(json);
     }
 
@@ -117,7 +117,7 @@ public class DingTalkRobot {
                         .isAtAll(atAll)
                         .build())
                 .build();
-        String json = StarxJson.serializeAsString(markdownReq);
+        String json = XJson.serializeAsString(markdownReq);
         sendMessage(json);
     }
 }

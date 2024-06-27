@@ -2,7 +2,7 @@ package com.starxmind.piano.sms.guoyangyun;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.starxmind.bass.http.StarxHttp;
+import com.starxmind.bass.http.XHttp;
 import com.starxmind.bass.sugar.Asserts;
 import com.starxmind.piano.sms.core.SmsClient;
 import com.starxmind.piano.sms.core.SmsException;
@@ -22,17 +22,17 @@ public class GuoyangyunSmsClient implements SmsClient {
     private final static String SEND_SMS_API = "https://gyytz.market.alicloudapi.com/sms/smsSend";
 
     @Getter
-    private StarxHttp StarxHttp;
+    private XHttp XHttp;
 
     @Getter
     private String appCode;
 
     private String authorization;
 
-    public GuoyangyunSmsClient(String appCode, StarxHttp StarxHttp) {
+    public GuoyangyunSmsClient(String appCode, XHttp XHttp) {
         this.appCode = appCode;
         this.authorization = "APPCODE " + appCode;
-        this.StarxHttp = StarxHttp;
+        this.XHttp = XHttp;
     }
 
     /**
@@ -43,7 +43,7 @@ public class GuoyangyunSmsClient implements SmsClient {
     @Override
     public void send(SmsRequest smsRequest) {
         try {
-            GuoyangyunSmsResponse response = StarxHttp.postForObject(
+            GuoyangyunSmsResponse response = XHttp.postForObject(
                     SEND_SMS_API,
                     ImmutableMap.of("Authorization", authorization),
                     convertParams(smsRequest),

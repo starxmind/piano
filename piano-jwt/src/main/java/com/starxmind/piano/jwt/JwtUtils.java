@@ -1,6 +1,6 @@
 package com.starxmind.piano.jwt;
 
-import com.starxmind.bass.json.StarxJson;
+import com.starxmind.bass.json.XJson;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public abstract class JwtUtils {
     public static String encode(Object object, String secret, long expiration) {
-        Map claims = object instanceof Map ? (Map) object : StarxJson.objectToMap(object);
+        Map claims = object instanceof Map ? (Map) object : XJson.objectToMap(object);
         Date now = new Date();
         String jwt = Jwts.builder()
                 .setClaims(claims)
@@ -38,6 +38,6 @@ public abstract class JwtUtils {
         Claims claims = Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(jwt).getBody();
-        return StarxJson.mapToObject(claims, clazz);
+        return XJson.mapToObject(claims, clazz);
     }
 }

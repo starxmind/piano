@@ -4,7 +4,7 @@ import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
 import com.aliyun.teaopenapi.models.Config;
-import com.starxmind.bass.json.StarxJson;
+import com.starxmind.bass.json.XJson;
 import com.starxmind.bass.sugar.Asserts;
 import com.starxmind.piano.sms.core.SmsClient;
 import com.starxmind.piano.sms.core.SmsException;
@@ -80,7 +80,7 @@ public class AliyunSmsClient implements SmsClient {
         SendSmsRequest request = new SendSmsRequest()
                 .setSignName(smsRequest.getSignName())
                 .setTemplateCode(smsRequest.getTemplateCode())
-                .setTemplateParam(StarxJson.serializeAsString(smsRequest.getTemplateParam()))
+                .setTemplateParam(XJson.serializeAsString(smsRequest.getTemplateParam()))
                 .setPhoneNumbers(smsRequest.getPhoneNumber());
         try {
             SendSmsResponse resp = client.sendSms(request);

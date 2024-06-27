@@ -1,6 +1,6 @@
 package com.starxmind.piano.token.memory;
 
-import com.starxmind.bass.http.StarxHttp;
+import com.starxmind.bass.http.XHttp;
 import com.starxmind.piano.wechat.token.core.AccessTokenManager;
 import com.starxmind.piano.wechat.token.core.WeChatInfo;
 
@@ -14,8 +14,8 @@ public class MemoryAccessTokenManager extends AccessTokenManager {
     private String accessToken;
     private Long tokenCreateTimestamp;
 
-    public MemoryAccessTokenManager(WeChatInfo weChatInfo, StarxHttp starxHttp) {
-        super(weChatInfo, starxHttp);
+    public MemoryAccessTokenManager(WeChatInfo weChatInfo, XHttp XHttp) {
+        super(weChatInfo, XHttp);
     }
 
     @Override
