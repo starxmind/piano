@@ -10,11 +10,11 @@ public final class WechatAesCipher {
         cipher = new AeadAesCipher(key.getBytes());
     }
 
-    public String decrypt(String associatedData, String nonce, String ciphertext) {
-        return cipher.decrypt(
-                associatedData.getBytes(),
-                nonce.getBytes(),
-                Base64Utils.decrypt(ciphertext)
-        );
+    public String decrypt(String associatedData, String nonce, byte[] ciphertext) {
+        return cipher.decrypt(associatedData.getBytes(), nonce.getBytes(), ciphertext);
+    }
+
+    public String decryptWithBase64(String associatedData, String nonce, String ciphertextBase64) {
+        return decrypt(associatedData, nonce, Base64Utils.decrypt(ciphertextBase64));
     }
 }
