@@ -12,9 +12,9 @@ public class WechatNotifyResolver {
     private final WechatAesCipher wechatAesCipher;
 
     public Map<String, Object> resolve(Map<String, Object> notifyReq) {
-        String eventType = notifyReq.get("event_type").toString();
-        Asserts.equals("TRANSACTION.SUCCESS", eventType,
-                "Check the request for event_type: " + eventType);
+//        String eventType = notifyReq.get("event_type").toString();
+//        Asserts.equals("TRANSACTION.SUCCESS", eventType,
+//                "Check the request for event_type: " + eventType);
         Map<String, Object> resource = (Map<String, Object>) notifyReq.get("resource");
         String plainText = wechatAesCipher.decryptWithBase64(
                 resource.get("associated_data").toString(),

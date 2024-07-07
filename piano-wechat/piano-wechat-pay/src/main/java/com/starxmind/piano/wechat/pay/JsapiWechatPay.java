@@ -6,10 +6,8 @@ import com.starxmind.bass.security.Base64Utils;
 import com.starxmind.piano.wechat.pay.req.PrepayReq;
 import com.starxmind.piano.wechat.pay.resp.PayPackage;
 import com.wechat.pay.java.service.payments.jsapi.JsapiService;
-import com.wechat.pay.java.service.payments.jsapi.model.Amount;
-import com.wechat.pay.java.service.payments.jsapi.model.Payer;
-import com.wechat.pay.java.service.payments.jsapi.model.PrepayRequest;
-import com.wechat.pay.java.service.payments.jsapi.model.PrepayResponse;
+import com.wechat.pay.java.service.payments.jsapi.model.*;
+import com.wechat.pay.java.service.payments.model.Transaction;
 import com.wechat.pay.java.service.payments.nativepay.NativePayService;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
@@ -107,5 +105,13 @@ public class JsapiWechatPay extends WechatPay {
         } catch (Exception e) {
             throw new RuntimeException("Fatal error when sign wechat payment");
         }
+    }
+
+    @Override
+    public Transaction fetchPayResult(String transactionId) {
+        QueryOrderByOutTradeNoRequest request = new QueryOrderByOutTradeNoRequest();
+        request.setMchid(getPayConfig().getMerchantId());
+        request.setOutTradeNo(transactionId);
+        return payService.queryOrderByOutTradeNo(request);
     }
 }

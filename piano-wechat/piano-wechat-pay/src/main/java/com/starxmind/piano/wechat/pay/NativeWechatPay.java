@@ -1,6 +1,7 @@
 package com.starxmind.piano.wechat.pay;
 
 import com.starxmind.piano.wechat.pay.req.PrepayReq;
+import com.wechat.pay.java.service.payments.model.Transaction;
 import com.wechat.pay.java.service.payments.nativepay.NativePayService;
 import com.wechat.pay.java.service.payments.nativepay.model.Amount;
 import com.wechat.pay.java.service.payments.nativepay.model.PrepayRequest;
@@ -44,6 +45,11 @@ public class NativeWechatPay extends WechatPay {
         PrepayResponse response = payService.prepay(request);
         // 使用微信扫描 code_url 对应的二维码，即可体验Native支付
         return response.getCodeUrl();
+    }
+
+    @Override
+    public Transaction fetchPayResult(String transactionId) {
+        return null;
     }
 
 }

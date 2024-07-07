@@ -3,10 +3,12 @@ package com.starxmind.piano.wechat.pay;
 import com.starxmind.piano.wechat.pay.req.PrepayReq;
 import com.wechat.pay.java.core.Config;
 import com.wechat.pay.java.core.RSAAutoCertificateConfig;
+import com.wechat.pay.java.service.payments.model.Transaction;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 @Getter
@@ -50,4 +52,6 @@ public abstract class WechatPay {
     }
 
     public abstract Object prepay(@Valid PrepayReq prepayReq);
+
+    public abstract Transaction fetchPayResult(@NotBlank String transactionId);
 }
