@@ -3,6 +3,8 @@ package com.starxmind.piano.verifycode;
 
 import com.starxmind.bass.datastructure.map.ExpiringMap;
 
+import java.util.concurrent.TimeUnit;
+
 public class MemoryVerifyCodeCache extends VerifyCodeCache {
     ExpiringMap<String, String> expiringMap = new ExpiringMap<>();
 
@@ -15,7 +17,7 @@ public class MemoryVerifyCodeCache extends VerifyCodeCache {
 
     @Override
     public void put(String receiver, String verifyCode, String scene) {
-        expiringMap.put(cacheKey(receiver, scene), verifyCode, getExpirationMilliseconds());
+        expiringMap.put(cacheKey(receiver, scene), verifyCode, getExpirationMilliseconds(), TimeUnit.MILLISECONDS);
     }
 
     @Override

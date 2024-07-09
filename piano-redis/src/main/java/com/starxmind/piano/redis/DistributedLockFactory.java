@@ -20,6 +20,6 @@ public class DistributedLockFactory {
 
     public DistributedLock get(String lockName) {
         final String localKey = KeyUtils.lockKey(lockName);
-        return new DistributedLock(redissonClient, localKey);
+        return new DistributedLock(redissonClient.getLock(localKey));
     }
 }
