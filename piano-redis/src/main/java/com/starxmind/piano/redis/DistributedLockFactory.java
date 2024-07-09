@@ -2,6 +2,7 @@ package com.starxmind.piano.redis;
 
 import com.starxmind.piano.redis.utils.KeyUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 
 /**
@@ -20,6 +21,7 @@ public class DistributedLockFactory {
 
     public DistributedLock get(String lockName) {
         final String localKey = KeyUtils.lockKey(lockName);
-        return new DistributedLock(redissonClient.getLock(localKey));
+        RLock nativeLock = redissonClient.getLock(localKey);
+        return new DistributedLock(nativeLock);
     }
 }
