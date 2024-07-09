@@ -1,6 +1,6 @@
 package com.starxmind.piano.redis;
 
-import com.starxmind.bass.concurrent.lock.LeaseXLock;
+import com.starxmind.bass.concurrent.lock.XLock;
 import com.starxmind.bass.concurrent.lock.exceptions.LockException;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0
  */
 @Slf4j
-public class DistributedXLock implements LeaseXLock {
+public class DistributedXLock implements XLock {
     private final RLock lock;
 
     public DistributedXLock(RLock lock) {
@@ -33,10 +33,6 @@ public class DistributedXLock implements LeaseXLock {
         lock.lock();
     }
 
-    public void lock(long leaseTime, TimeUnit timeUnit) {
-        lock.lock(leaseTime, timeUnit);
-    }
-
     public boolean tryLock() {
         return lock.tryLock();
     }
@@ -49,6 +45,10 @@ public class DistributedXLock implements LeaseXLock {
             Thread.currentThread().interrupt();
             throw new LockException(String.format("Acquire lock fail by thread interrupted,path:%s", lock.getName()), e);
         }
+    }
+
+    public void lock(long leaseTime, TimeUnit timeUnit) {
+        lock.lock(leaseTime, timeUnit);
     }
 
     public boolean tryLock(long waitTime, long leaseTime, TimeUnit timeUnit) {
