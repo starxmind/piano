@@ -1,7 +1,7 @@
 package com.starxmind.piano.redis;
 
-import com.starxmind.bass.concurrent.XLock;
-import com.starxmind.bass.concurrent.exceptions.LockException;
+import com.starxmind.bass.concurrent.lock.LeaseXLock;
+import com.starxmind.bass.concurrent.lock.exceptions.LockException;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 
@@ -14,10 +14,10 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0
  */
 @Slf4j
-public class DistributedLock implements XLock {
+public class DistributedXLock implements LeaseXLock {
     private final RLock lock;
 
-    public DistributedLock(RLock lock) {
+    public DistributedXLock(RLock lock) {
         this.lock = lock;
     }
 
