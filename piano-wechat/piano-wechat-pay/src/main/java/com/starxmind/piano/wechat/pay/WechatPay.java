@@ -7,10 +7,7 @@ import com.wechat.pay.java.core.Config;
 import com.wechat.pay.java.core.RSAAutoCertificateConfig;
 import com.wechat.pay.java.service.payments.model.Transaction;
 import com.wechat.pay.java.service.refund.RefundService;
-import com.wechat.pay.java.service.refund.model.AmountReq;
-import com.wechat.pay.java.service.refund.model.CreateRequest;
-import com.wechat.pay.java.service.refund.model.Refund;
-import com.wechat.pay.java.service.refund.model.Status;
+import com.wechat.pay.java.service.refund.model.*;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
@@ -71,7 +68,6 @@ public abstract class WechatPay {
 
     public abstract void close(String orderNo);
 
-
     public void refund(@Valid RefundReq refundReq) {
         CreateRequest request = new CreateRequest();
 
@@ -95,6 +91,12 @@ public abstract class WechatPay {
         Refund refund = refundService.create(request);
         Status status = refund.getStatus();
         Asserts.isTrue(status.equals(Status.SUCCESS), "微信退款失败, 状态码: " + status);
+    }
+
+    public Refund fetchRefundResult(String refundNo) {
+        QueryByOutRefundNoRequest request = new QueryByOutRefundNoRequest();
+        request.setOutRefundNo(refundNo);
+        return refundService.queryByOutRefundNo(request);
     }
 
 }
