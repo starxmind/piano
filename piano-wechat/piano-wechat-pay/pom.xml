@@ -6,7 +6,7 @@
     <parent>
         <artifactId>piano-wechat</artifactId>
         <groupId>com.starxmind</groupId>
-        <version>0.1.7</version>
+        <version>0.1.9</version>
     </parent>
 
     <artifactId>piano-wechat-pay</artifactId>

@@ -42,17 +42,17 @@ public class JsapiWechatPay extends WechatPay {
     @Override
     public PayPackage prepay(@Valid PrepayReq prepayReq) {
         PrepayRequest request = new PrepayRequest();
-        Amount amount = new Amount();
-        amount.setTotal(convertMoney(BigDecimal.valueOf(prepayReq.getTotal())));
-        request.setAmount(amount);
         request.setAppid(getAppId());
         request.setMchid(getPayConfig().getMerchantId());
-        request.setDescription(prepayReq.getDescription());
-        request.setNotifyUrl(prepayReq.getNotifyUrl());
         request.setOutTradeNo(prepayReq.getOrderNo());
+        Amount amount = new Amount();
+        amount.setTotal((int) convertMoney(prepayReq.getTotal()));
+        request.setAmount(amount);
+        request.setDescription(prepayReq.getDescription());
         Payer payer = new Payer();
         payer.setOpenid(prepayReq.getPayerOpenid());
         request.setPayer(payer);
+        request.setNotifyUrl(prepayReq.getNotifyUrl());
         PrepayResponse response = payService.prepay(request);
         return getPayPackage(response.getPrepayId());
     }
@@ -109,9 +109,26 @@ public class JsapiWechatPay extends WechatPay {
 
     @Override
     public Transaction fetchPayResult(String transactionId) {
+        QueryOrderByIdRequest request = new QueryOrderByIdRequest();
+        request.setMchid(getPayConfig().getMerchantId());
+        request.setTransactionId(transactionId);
+        return payService.queryOrderById(request);
+    }
+
+    @Override
+    public Transaction fetchPayResultByOrderNo(String orderNo) {
         QueryOrderByOutTradeNoRequest request = new QueryOrderByOutTradeNoRequest();
         request.setMchid(getPayConfig().getMerchantId());
-        request.setOutTradeNo(transactionId);
+        request.setOutTradeNo(orderNo);
         return payService.queryOrderByOutTradeNo(request);
     }
+
+    @Override
+    public void close(String orderNo) {
+        CloseOrderRequest request = new CloseOrderRequest();
+        request.setMchid(getPayConfig().getMerchantId());
+        request.setOutTradeNo(orderNo);
+        payService.closeOrder(request);
+    }
+
 }

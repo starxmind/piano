@@ -48,10 +48,10 @@
     </parent>
 
     <artifactId>piano</artifactId>
-    <version>0.1.7</version>
+    <version>0.1.9</version>
 
     <properties>
-        <piano.version>0.1.7</piano.version>
+        <piano.version>0.1.9</piano.version>
     </properties>
 
     <dependencies>

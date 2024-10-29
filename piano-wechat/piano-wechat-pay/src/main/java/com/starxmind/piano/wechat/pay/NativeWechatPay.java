@@ -3,9 +3,7 @@ package com.starxmind.piano.wechat.pay;
 import com.starxmind.piano.wechat.pay.req.PrepayReq;
 import com.wechat.pay.java.service.payments.model.Transaction;
 import com.wechat.pay.java.service.payments.nativepay.NativePayService;
-import com.wechat.pay.java.service.payments.nativepay.model.Amount;
-import com.wechat.pay.java.service.payments.nativepay.model.PrepayRequest;
-import com.wechat.pay.java.service.payments.nativepay.model.PrepayResponse;
+import com.wechat.pay.java.service.payments.nativepay.model.*;
 import lombok.Getter;
 
 import javax.validation.Valid;
@@ -34,7 +32,7 @@ public class NativeWechatPay extends WechatPay {
         // request.setXxx(val)设置所需参数，具体参数可见Request定义
         PrepayRequest request = new PrepayRequest();
         Amount amount = new Amount();
-        amount.setTotal(convertMoney(BigDecimal.valueOf(prepayReq.getTotal())));
+        amount.setTotal((int) convertMoney(prepayReq.getTotal()));
         request.setAmount(amount);
         request.setAppid(getAppId());
         request.setMchid(getPayConfig().getMerchantId());
@@ -49,7 +47,26 @@ public class NativeWechatPay extends WechatPay {
 
     @Override
     public Transaction fetchPayResult(String transactionId) {
-        return null;
+        QueryOrderByIdRequest request = new QueryOrderByIdRequest();
+        request.setMchid(getPayConfig().getMerchantId());
+        request.setTransactionId(transactionId);
+        return payService.queryOrderById(request);
+    }
+
+    @Override
+    public Transaction fetchPayResultByOrderNo(String orderNo) {
+        QueryOrderByOutTradeNoRequest request = new QueryOrderByOutTradeNoRequest();
+        request.setMchid(getPayConfig().getMerchantId());
+        request.setOutTradeNo(orderNo);
+        return payService.queryOrderByOutTradeNo(request);
+    }
+
+    @Override
+    public void close(String orderNo) {
+        CloseOrderRequest request = new CloseOrderRequest();
+        request.setMchid(getPayConfig().getMerchantId());
+        request.setOutTradeNo(orderNo);
+        payService.closeOrder(request);
     }
 
 }
