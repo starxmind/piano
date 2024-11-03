@@ -1,6 +1,5 @@
 package com.starxmind.piano.wechat.pay;
 
-import com.starxmind.bass.sugar.Asserts;
 import com.starxmind.piano.wechat.pay.req.PrepayReq;
 import com.starxmind.piano.wechat.pay.req.RefundReq;
 import com.wechat.pay.java.core.Config;
@@ -68,7 +67,7 @@ public abstract class WechatPay {
 
     public abstract void close(String orderNo);
 
-    public void refund(@Valid RefundReq refundReq) {
+    public Refund refund(@Valid RefundReq refundReq) {
         CreateRequest request = new CreateRequest();
 
         // 原始单号
@@ -89,8 +88,8 @@ public abstract class WechatPay {
         request.setNotifyUrl(refundReq.getNotifyUrl());
 
         Refund refund = refundService.create(request);
-        Status status = refund.getStatus();
-        Asserts.isTrue(status.equals(Status.SUCCESS), "微信退款失败, 状态码: " + status);
+        return refund;
+//        Asserts.isTrue(status.equals(Status.SUCCESS), "微信退款失败, 状态码: " + status);
     }
 
     public Refund fetchRefundResult(String refundNo) {
