@@ -1,12 +1,16 @@
 package com.starxmind.piano.wechat.pay;
 
+import com.starxmind.piano.wechat.pay.exceptions.PayException;
 import com.starxmind.piano.wechat.pay.req.PrepayReq;
 import com.starxmind.piano.wechat.pay.req.RefundReq;
 import com.wechat.pay.java.core.Config;
 import com.wechat.pay.java.core.RSAAutoCertificateConfig;
 import com.wechat.pay.java.service.payments.model.Transaction;
 import com.wechat.pay.java.service.refund.RefundService;
-import com.wechat.pay.java.service.refund.model.*;
+import com.wechat.pay.java.service.refund.model.AmountReq;
+import com.wechat.pay.java.service.refund.model.CreateRequest;
+import com.wechat.pay.java.service.refund.model.QueryByOutRefundNoRequest;
+import com.wechat.pay.java.service.refund.model.Refund;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
@@ -87,8 +91,13 @@ public abstract class WechatPay {
         request.setAmount(amountReq);
         request.setNotifyUrl(refundReq.getNotifyUrl());
 
-        Refund refund = refundService.create(request);
-        return refund;
+        try {
+            return refundService.create(request);
+        } catch (com.wechat.pay.java.core.exception.ServiceException ex) {
+            throw new PayException(ex.getErrorMessage(), ex);
+        } catch (Exception ex) {
+            throw new PayException("Error to refund", ex);
+        }
 //        Asserts.isTrue(status.equals(Status.SUCCESS), "微信退款失败, 状态码: " + status);
     }
 
