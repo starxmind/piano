@@ -7,7 +7,6 @@ import com.wechat.pay.java.service.payments.nativepay.model.*;
 import lombok.Getter;
 
 import javax.validation.Valid;
-import java.math.BigDecimal;
 
 @Getter
 public class NativeWechatPay extends WechatPay {
@@ -18,8 +17,8 @@ public class NativeWechatPay extends WechatPay {
      */
     private final NativePayService payService;
 
-    public NativeWechatPay(String appId, PayConfig payConfig) {
-        super(appId, payConfig);
+    public NativeWechatPay(PayConfig payConfig) {
+        super(payConfig);
         payService = new NativePayService.Builder().config(buildConfig()).build();
     }
 
@@ -34,7 +33,7 @@ public class NativeWechatPay extends WechatPay {
         Amount amount = new Amount();
         amount.setTotal((int) convertMoney(prepayReq.getTotal()));
         request.setAmount(amount);
-        request.setAppid(getAppId());
+        request.setAppid(prepayReq.getAppId());
         request.setMchid(getPayConfig().getMerchantId());
         request.setDescription(prepayReq.getDescription());
         request.setNotifyUrl(prepayReq.getNotifyUrl());

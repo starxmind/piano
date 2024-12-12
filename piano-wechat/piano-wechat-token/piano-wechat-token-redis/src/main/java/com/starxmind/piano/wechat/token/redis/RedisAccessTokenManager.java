@@ -2,9 +2,12 @@ package com.starxmind.piano.wechat.token.redis;
 
 import com.starxmind.bass.http.XHttp;
 import com.starxmind.piano.wechat.token.core.AccessTokenManager;
-import com.starxmind.piano.wechat.token.core.WeChatInfo;
+import com.starxmind.piano.wechat.token.core.WechatApp;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Redis型AccessToken管理器
@@ -13,34 +16,34 @@ import org.redisson.api.RedissonClient;
  * @since 1.0
  */
 public class RedisAccessTokenManager extends AccessTokenManager {
-    private static final String REDIS_KEY_ACCESS_TOKEN = "piano:wechat:access_token";
+    private static final String REDIS_KEY_ACCESS_TOKEN = "piano:wechat:access_token:";
     private final RedissonClient redissonClient;
 
-    public RedisAccessTokenManager(WeChatInfo weChatInfo, XHttp XHttp, RedissonClient redissonClient) {
-        super(weChatInfo, XHttp);
+    public RedisAccessTokenManager(List<WechatApp> wechatApps, XHttp XHttp, RedissonClient redissonClient) {
+        super(wechatApps, XHttp);
         this.redissonClient = redissonClient;
     }
 
     @Override
-    protected boolean isAccessTokenInvalid() {
-        RBucket<Object> bucket = redissonClient.getBucket(REDIS_KEY_ACCESS_TOKEN);
-        if (!bucket.isExists()) {
-            return true;
-        }
-        long remainTimeToLive = bucket.remainTimeToLive();
-        // token生存时间小于请求时间，则重新获取
-        return remainTimeToLive < super.ACCESS_TOKEN_REQUEST_TIME;
+    protected boolean isAccessTokenInvalid(String appId) {
+        RBucket<Object> bucket = redissonClient.getBucket(getKey(appId));
+        return !bucket.isExists();
     }
 
     @Override
-    protected void saveAccessToken(String accessToken) {
-        RBucket<Object> bucket = redissonClient.getBucket(REDIS_KEY_ACCESS_TOKEN);
-        bucket.set(accessToken);
+    protected void saveAccessToken(String appId, String accessToken) {
+        RBucket<Object> bucket = redissonClient.getBucket(getKey(appId));
+        bucket.set(accessToken, super.ACCESS_TOKEN_STORAGE_MINUTES, TimeUnit.MINUTES);
     }
 
     @Override
-    protected String getSavedAccessToken() {
-        RBucket<Object> bucket = redissonClient.getBucket(REDIS_KEY_ACCESS_TOKEN);
+    protected String getSavedAccessToken(String appId) {
+        RBucket<Object> bucket = redissonClient.getBucket(getKey(appId));
         return bucket.get().toString();
     }
+
+    private String getKey(String appId) {
+        return REDIS_KEY_ACCESS_TOKEN + appId;
+    }
+
 }

@@ -15,7 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 @Data
-public class WeChatInfo {
+public class WechatApp {
+    private String appKey;
+    private String appName;
     private String appId;
     private String secret;
 }

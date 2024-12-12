@@ -1,8 +1,12 @@
 package com.starxmind.piano.token.memory;
 
+import com.google.common.collect.Maps;
 import com.starxmind.bass.http.XHttp;
 import com.starxmind.piano.wechat.token.core.AccessTokenManager;
-import com.starxmind.piano.wechat.token.core.WeChatInfo;
+import com.starxmind.piano.wechat.token.core.WechatApp;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 内存型AccessToken管理器
@@ -11,27 +15,28 @@ import com.starxmind.piano.wechat.token.core.WeChatInfo;
  * @since 1.0
  */
 public class MemoryAccessTokenManager extends AccessTokenManager {
-    private String accessToken;
-    private Long tokenCreateTimestamp;
+    private Map<String, String> accessTokenMap = Maps.newHashMap();
+    private Map<String, Long> tokenCreateTimestampMap = Maps.newHashMap();
 
-    public MemoryAccessTokenManager(WeChatInfo weChatInfo, XHttp XHttp) {
-        super(weChatInfo, XHttp);
+    public MemoryAccessTokenManager(List<WechatApp> wechatApps, XHttp XHttp) {
+        super(wechatApps, XHttp);
     }
 
     @Override
-    protected boolean isAccessTokenInvalid() {
+    protected boolean isAccessTokenInvalid(String appId) {
+        Long tokenCreateTimestamp = tokenCreateTimestampMap.get(appId);
         return tokenCreateTimestamp == null ||
                 System.currentTimeMillis() - tokenCreateTimestamp > super.ACCESS_TOKEN_STORAGE_TIME;
     }
 
     @Override
-    protected void saveAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-        this.tokenCreateTimestamp = System.currentTimeMillis();
+    protected void saveAccessToken(String appId, String accessToken) {
+        accessTokenMap.put(appId, accessToken);
+        tokenCreateTimestampMap.put(appId, System.currentTimeMillis());
     }
 
     @Override
-    protected String getSavedAccessToken() {
-        return this.accessToken;
+    protected String getSavedAccessToken(String appId) {
+        return accessTokenMap.get(appId);
     }
 }

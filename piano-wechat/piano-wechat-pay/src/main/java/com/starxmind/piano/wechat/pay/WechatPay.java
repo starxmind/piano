@@ -21,10 +21,6 @@ import java.math.BigDecimal;
 @Getter
 public abstract class WechatPay {
     /**
-     * 应用ID
-     */
-    private final String appId;
-    /**
      * 支付配置
      */
     private final PayConfig payConfig;
@@ -33,8 +29,7 @@ public abstract class WechatPay {
      */
     private final RefundService refundService;
 
-    public WechatPay(String appId, PayConfig payConfig) {
-        this.appId = appId;
+    public WechatPay(PayConfig payConfig) {
         this.payConfig = payConfig;
         this.refundService = new RefundService.Builder().config(buildConfig()).build();
     }

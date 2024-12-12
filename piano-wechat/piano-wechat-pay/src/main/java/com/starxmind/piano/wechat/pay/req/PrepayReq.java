@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -15,6 +14,8 @@ import java.math.BigDecimal;
 @Builder(toBuilder = true)
 @Data
 public class PrepayReq {
+    @NotBlank(message = "Param 'appId' must be not blank")
+    private String appId;
     @NotBlank(message = "Param 'orderNo' must be not blank")
     private String orderNo;
     @NotNull(message = "Total is required")

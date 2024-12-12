@@ -14,7 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.KeyFactory;
@@ -34,15 +33,15 @@ public class JsapiWechatPay extends WechatPay {
      */
     private final JsapiService payService;
 
-    public JsapiWechatPay(String appId, PayConfig payConfig) {
-        super(appId, payConfig);
+    public JsapiWechatPay(PayConfig payConfig) {
+        super(payConfig);
         payService = new JsapiService.Builder().config(buildConfig()).build();
     }
 
     @Override
     public PayPackage prepay(@Valid PrepayReq prepayReq) {
         PrepayRequest request = new PrepayRequest();
-        request.setAppid(getAppId());
+        request.setAppid(prepayReq.getAppId());
         request.setMchid(getPayConfig().getMerchantId());
         request.setOutTradeNo(prepayReq.getOrderNo());
         Amount amount = new Amount();
@@ -54,21 +53,21 @@ public class JsapiWechatPay extends WechatPay {
         request.setPayer(payer);
         request.setNotifyUrl(prepayReq.getNotifyUrl());
         PrepayResponse response = payService.prepay(request);
-        return getPayPackage(response.getPrepayId());
+        return getPayPackage(prepayReq.getAppId(), response.getPrepayId());
     }
 
-    private PayPackage getPayPackage(String prepayId) {
+    private PayPackage getPayPackage(String appId, String prepayId) {
         long timeStamp = Instant.now().getEpochSecond();
         String nonceStr = RandomUuidUtils.gen32UpperCase();
         String prepayPackage = "prepay_id=" + prepayId;
 
         Map<String, Object> retMap = Maps.newHashMap();
-        retMap.put("appId", getAppId());
+        retMap.put("appId", appId);
         retMap.put("timeStamp", String.valueOf(timeStamp));
         retMap.put("nonceStr", nonceStr);
         retMap.put("package", prepayPackage);
         retMap.put("signType", "RSA");
-        retMap.put("paySign", paySign(getAppId(), getPrivateKey(), timeStamp, nonceStr, prepayPackage));
+        retMap.put("paySign", paySign(appId, getPrivateKey(), timeStamp, nonceStr, prepayPackage));
         return new PayPackage(prepayId, retMap);
     }
 
